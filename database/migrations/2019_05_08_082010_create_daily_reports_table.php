@@ -13,14 +13,15 @@ class CreateDailyReportsTable extends Migration
      */
     public function up()
     {
-        Schema::table('daily_reports', function (Blueprint $table) {
+        Schema::create('daily_reports', function (Blueprint $table) {
             $table->increments('user_id');      // 日報の投稿者
             $table->string('title');            // 日報のタイトル
             $table->text('contents');           // 日報の内容
             $table->datetime('reporting_time'); // 日報の日付
             $table->timestamps();               // created_at / updated_at 
                                                 // 作成日時 / 更新日時
-            $table->timestamp('deleted_at');    // deleted_at 削除日時
+            $table->timestamp('deleted_at')
+                  ->nullable();                 // 削除日時
         });
     }
 
