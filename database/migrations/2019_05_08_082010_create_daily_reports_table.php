@@ -14,7 +14,8 @@ class CreateDailyReportsTable extends Migration
     public function up()
     {
         Schema::create('daily_reports', function (Blueprint $table) {
-            $table->increments('user_id');      // 日報の投稿者
+            $table->increments('id');
+            $table->integer('user_id');      // 日報の投稿者
             $table->string('title');            // 日報のタイトル
             $table->text('contents');           // 日報の内容
             $table->datetime('reporting_time'); // 日報の日付
