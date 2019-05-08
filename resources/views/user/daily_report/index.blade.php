@@ -21,12 +21,14 @@
         </tr>
       </thead>
       <tbody>
+        @foreach ($reports as $report)
           <tr class="row">
-            <td class="col-xs-2"></td>
-            <td class="col-xs-3"></td>
-            <td class="col-xs-5"></td>
+            <td class="col-xs-2">{{ $report->reporting_time->format('m/d(D)') }}</td>
+            <td class="col-xs-3">{{ $report->title }}</td>
+            <td class="col-xs-5">{{ $report->contents }}</td>
             <td class="col-xs-2"><a class="btn" href=""><i class="fa fa-book"></i></a></td>
           </tr>
+        @endforeach
       </tbody>
     </table>
   </div>

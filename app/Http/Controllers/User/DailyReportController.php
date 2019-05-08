@@ -8,6 +8,12 @@ use App\Http\Controllers\Controller;
 
 class DailyReportController extends Controller
 {
+    protected $report;
+    public function __construct(DailyReport $report) {
+        $this->middleware('auth');
+        $this->report = $report;
+    }
+
     /**
      * 日報一覧画面を表示する
      *
@@ -15,7 +21,12 @@ class DailyReportController extends Controller
      */
     public function index()
     {
-        return view('user.daily_report.index');
+        // 日報をすべて取得
+        $reports = $this->report->all();
+        return view(
+            'user.daily_report.index',
+            compact('reports')
+        );
     }
 
     /**
