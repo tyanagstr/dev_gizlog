@@ -7,6 +7,7 @@ use App\Models\DailyReport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\DailyReportRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Carbon;
 
 class DailyReportController extends Controller
 {
@@ -26,15 +27,12 @@ class DailyReportController extends Controller
     {
         $date = $request->query('search-month');
         if ($date) {
-            $date = substr($date, 0, 7);
-            $date_splited = explode('-', $date);
-            $year = $date_splited[0];
-            $month = $date_splited[1];
             // 年月に合致する日報を取得
+            $search_date = new Carbon(substr($date, 0, 7));
             $reports = $this->report
                 ->where('user_id', Auth::user()->id)
-                ->whereYear('reporting_time', $year)
-                ->whereMonth('reporting_time', $month)
+                ->whereYear('reporting_time', $search_date->year)
+                ->whereMonth('reporting_time', $search_date->month)
                 ->get();
         } else {
             // 日報をすべて取得
