@@ -94,13 +94,14 @@ class DailyReportController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * 日報を削除する(ただし論理削除)
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+        $report = $this->report->destroy($id);
+        return redirect()->to(route('daily_report.index'));
     }
 }
