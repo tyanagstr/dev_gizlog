@@ -72,14 +72,15 @@ class DailyReportController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * 日報編集画面を表示する
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        //
+        $report = $this->report->find($id);
+        return view('user.daily_report.edit', compact('report'));
     }
 
     /**
