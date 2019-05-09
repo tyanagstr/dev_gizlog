@@ -30,13 +30,13 @@ class DailyReportController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * 日報作成画面を表示
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        //
+        return view('user.daily_report.create');
     }
 
     /**
