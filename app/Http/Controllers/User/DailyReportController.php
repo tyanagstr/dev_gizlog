@@ -33,11 +33,13 @@ class DailyReportController extends Controller
                 ->where('user_id', Auth::user()->id)
                 ->whereYear('reporting_time', $search_date->year)
                 ->whereMonth('reporting_time', $search_date->month)
+                ->orderby('reporting_time', 'DEC')
                 ->get();
         } else {
             // 日報をすべて取得
             $reports = $this->report
                 ->where('user_id', Auth::user()->id)
+                ->orderby('reporting_time', 'DEC')
                 ->get();
         }
         
