@@ -11,7 +11,8 @@ use Illuminate\Support\Facades\Auth;
 class DailyReportController extends Controller
 {
     protected $report;
-    public function __construct(DailyReport $report) {
+    public function __construct(DailyReport $report)
+    {
         $this->middleware('auth');
         $this->report = $report;
     }
@@ -55,7 +56,7 @@ class DailyReportController extends Controller
         $this->report
             ->fill($request->all())
             ->save();
-        return redirect()->to('/daily_report');
+        return redirect()->route('daily_report.index');
     }
 
     /**
@@ -102,6 +103,6 @@ class DailyReportController extends Controller
     public function destroy($id)
     {
         $report = $this->report->destroy($id);
-        return redirect()->to(route('daily_report.index'));
+        return redirect()->route('daily_report.index');
     }
 }
