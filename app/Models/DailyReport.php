@@ -19,4 +19,10 @@ class DailyReport extends Model
         'contents',
         'reporting_time'
     ];
+
+    // relations
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
 }
