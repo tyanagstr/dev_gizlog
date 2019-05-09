@@ -22,13 +22,27 @@ class DailyReportController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        // 日報をすべて取得
-        $reports = $this->report
-            ->all()
-            ->where('user_id', '=', Auth::user()->id);
-
+        $date = $request->query('search-month');
+        if ($date) {
+            $date = substr($date, 0, 7);
+            $date_splited = explode('-', $date);
+            $year = $date_splited[0];
+            $month = $date_splited[1];
+            // 年月に合致する日報を取得
+            $reports = $this->report
+                ->where('user_id', Auth::user()->id)
+                ->whereYear('reporting_time', $year)
+                ->whereMonth('reporting_time', $month)
+                ->get();
+        } else {
+            // 日報をすべて取得
+            $reports = $this->report
+                ->where('user_id', Auth::user()->id)
+                ->get();
+        }
+        
         return view(
             'user.daily_report.index',
             compact('reports')
