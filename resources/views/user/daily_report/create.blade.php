@@ -7,7 +7,7 @@
     {!! Form::open(['route' => 'report.store']) !!}
       {!! Form::hidden('user_id', Auth::user()->id, ['class' => 'form-control']) !!}
       <div class="form-group form-size-small {{ $errors->has('reporting_time')? 'has-error' : ''}}">
-        {!! Form::date('reporting_time', null, ['class' => 'form-control']) !!}
+        {!! Form::date('reporting_time', Carbon::now(), ['class' => 'form-control']) !!}
         <span class="help-block">{{ $errors->first('reporting_time') }}</span>
       </div>
       <div class="form-group {{ $errors->has('title')? 'has-error' : ''}}">
