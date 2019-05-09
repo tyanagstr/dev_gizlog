@@ -84,15 +84,19 @@ class DailyReportController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * 日報の更新をする
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\User\DailyReportRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(DailyReportRequest $request, $id)
     {
-        //
+        $this->report
+            ->find($id)
+            ->fill($request->all())
+            ->save();
+        return redirect()->route('daily_report.index');
     }
 
     /**
