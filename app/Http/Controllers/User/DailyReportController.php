@@ -59,14 +59,15 @@ class DailyReportController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * 詳細画面の表示
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        //
+        $report = $this->report->find($id);
+        return view('user.daily_report.show', compact('report'));
     }
 
     /**

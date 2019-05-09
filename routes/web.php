@@ -45,6 +45,7 @@ Route::group(['prefix' => '/', 'user.', 'namespace' => 'User'], function () {
         'index',
         'create',
         'store',
+        'show',
     ]]);
 
     Route::get('question/{id}/mypage', ['as' => 'question.mypage', 'uses' => 'QuestionController@myPage']);
