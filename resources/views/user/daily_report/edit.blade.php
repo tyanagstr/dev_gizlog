@@ -4,7 +4,7 @@
 <h1 class="brand-header">日報編集</h1>
 <div class="main-wrap">
   <div class="container">
-    {!! Form::open(['route' => ['daily_report.update', $report->id], 'method' => 'PUT']) !!}
+    {!! Form::open(['route' => ['report.update', $report->id], 'method' => 'PUT']) !!}
       {!! Form::hidden('user_id', $report->user_id, ['class' => 'form-control']) !!}
       <div class="form-group form-size-small {{ $errors->has('reporting_time')? 'has-error' : '' }}">
         {!! Form::date('reporting_time', $report->reporting_time, ['class' => 'form-control']) !!}

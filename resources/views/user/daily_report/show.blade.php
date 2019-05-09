@@ -23,9 +23,9 @@
     </div>
   </div>
   <div class="btn-bottom-wrapper">
-    <a class="btn btn-edit" href="{{ route('daily_report.edit', $report->id) }}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+    <a class="btn btn-edit" href="{{ route('report.edit', $report->id) }}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
     <div class="btn-delete">
-      {!! Form::open(['route' => ['daily_report.destroy', $report->id], 'method' => 'DELETE']) !!}
+      {!! Form::open(['route' => ['report.destroy', $report->id], 'method' => 'DELETE']) !!}
         {!! Form::button('<i class="fa fa-trash-o"></i>', ['type' => 'submit', 'class' => 'btn btn-danger']) !!}
       {!! Form::close() !!} 
     </div>
