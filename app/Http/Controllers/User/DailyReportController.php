@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use Illuminate\Http\Request;
 use App\Models\DailyReport;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class DailyReportController extends Controller
 {
@@ -22,7 +23,10 @@ class DailyReportController extends Controller
     public function index()
     {
         // 日報をすべて取得
-        $reports = $this->report->all();
+        $reports = $this->report
+            ->all()
+            ->where('user_id', '=', Auth::user()->id);
+
         return view(
             'user.daily_report.index',
             compact('reports')
