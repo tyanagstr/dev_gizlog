@@ -3,22 +3,27 @@
 
 <h2 class="brand-header">日報作成</h2>
 <div class="main-wrap">
-  <div class="container">
-      <input class="form-control" name="user_id" type="hidden">
-      <div class="form-group form-size-small">
-    <input class="form-control" name="reporting_time" type="date">
-    <span class="help-block"></span>
+  {!! Form::open(['route' => 'daily_report.store', 'class' => 'container form']) !!}
+    {!! Form::hidden('user_id', Auth::user()->id, ['class' => 'form-control']) !!}
+    <div class="form-group form-size-small">
+      {!! Form::date('reporting_time', null, ['class' => 'form-control']) !!}
+      <span class="help-block">{{ $errors->first('reporting_time') }}</span>
     </div>
     <div class="form-group">
-      <input class="form-control" placeholder="Title" name="title" type="text">
-      <span class="help-block"></span>
+      {!! Form::text('title', '', ['class' => 'form-control', 'placeholder' => 'Title']) !!}
+      <span class="help-block">{{ $errors->first('title') }}</span>
     </div>
     <div class="form-group">
-      <textarea class="form-control" placeholder="Content" name="contents" cols="50" rows="10"></textarea>
-      <span class="help-block"></span>
+      {!! Form::textarea('contents', '', [
+        'class' => 'form-control',
+        'placeholder' => 'Content',
+        'cols' => '50',
+        'rows' => '10'
+      ]) !!}
+      <span class="help-block">{{ $errors->first('contents') }}</span>
     </div>
-    <button type="submit" class="btn btn-success pull-right">Add</button>
-  </div>
+    {!! Form::submit('Add', ['class' => 'btn btn-success pull-right']) !!}
+  {!! Form::close() !!}
 </div>
 
 @endsection

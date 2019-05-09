@@ -11,6 +11,7 @@ class DailyReport extends Model
 
     // fillでモデルにセットするカラムを指定
     protected $fillable = [ 
+        'user_id',
         'title',
         'contents',
         'reporting_time'

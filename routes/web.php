@@ -44,6 +44,7 @@ Route::group(['prefix' => '/', 'user.', 'namespace' => 'User'], function () {
     Route::resource('daily_report', DailyReportController::class, ['only' => [
         'index',
         'create',
+        'store',
     ]]);
 
     Route::get('question/{id}/mypage', ['as' => 'question.mypage', 'uses' => 'QuestionController@myPage']);

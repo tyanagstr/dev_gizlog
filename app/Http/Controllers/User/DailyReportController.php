@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use Illuminate\Http\Request;
 use App\Models\DailyReport;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\User\DailyReportRequest;
 use Illuminate\Support\Facades\Auth;
 
 class DailyReportController extends Controller
@@ -44,14 +45,17 @@ class DailyReportController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * 新たに日報を作成する
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\User\DailyReportRequest
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(DailyReportRequest $request)
     {
-        //
+        $this->report
+            ->fill($request->all())
+            ->save();
+        return redirect()->to('/daily_report');
     }
 
     /**
