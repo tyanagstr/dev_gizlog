@@ -41,14 +41,7 @@ Route::group(['prefix' => '/', 'user.', 'namespace' => 'User'], function () {
     Route::get('attendance/mypage', ['as' => 'attendance.mypage', 'uses' => 'AttendanceController@showMypage']);
 
     // Route::get('daily_report', ['as' => 'daily_report.index', 'uses' => 'DailyReportController@index']);
-    Route::resource('daily_report', DailyReportController::class, ['only' => [
-        'index',
-        'create',
-        'store',
-        'show',
-        'destroy',
-        'edit'
-    ]]);
+    Route::resource('daily_report', DailyReportController::class);
 
     Route::get('question/{id}/mypage', ['as' => 'question.mypage', 'uses' => 'QuestionController@myPage']);
     Route::post('question/confirm', ['as' => 'question.confirm', 'uses' => 'QuestionController@confirm']);
