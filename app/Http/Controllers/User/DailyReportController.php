@@ -26,7 +26,7 @@ class DailyReportController extends Controller
     public function index(Request $request)
     {
         $date = $request->query('search-month');
-        if ($date) {
+        if (!empty($date)) {
             // 年月に合致する日報を取得
             $search_date = new Carbon(substr($date, 0, 7));
             $reports = $this->report
