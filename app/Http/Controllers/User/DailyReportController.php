@@ -68,8 +68,8 @@ class DailyReportController extends Controller
     public function store(DailyReportRequest $request)
     {
         $this->report
-            ->fill($request->all())
-            ->save();
+             ->fill($request->all())
+             ->save();
         return redirect()->route('report.index');
     }
 
@@ -107,9 +107,9 @@ class DailyReportController extends Controller
     public function update(DailyReportRequest $request, $id)
     {
         $this->report
-            ->find($id)
-            ->fill($request->all())
-            ->save();
+             ->find($id)
+             ->fill($request->all())
+             ->save();
         return redirect()->route('report.index');
     }
 
