@@ -27,20 +27,10 @@ class DailyReportController extends Controller
     {
         $date = $request->query('search-month');
         if (!empty($date)) {
-            // 年月に合致する日報を取得
             $search_date = new Carbon(substr($date, 0, 7));
-            $reports = $this->report
-                ->where('user_id', Auth::user()->id)
-                ->whereYear('reporting_time', $search_date->year)
-                ->whereMonth('reporting_time', $search_date->month)
-                ->orderby('reporting_time', 'DEC')
-                ->get();
+            $reports = $this->report->fetchUserReportsFilterdByDate(Auth::id(), $search_date);
         } else {
-            // 日報をすべて取得
-            $reports = $this->report
-                ->where('user_id', Auth::user()->id)
-                ->orderby('reporting_time', 'DEC')
-                ->get();
+            $reports = $this->report->fetchAllUserReportsOfUser(Auth::id());
         }
         
         return view(
