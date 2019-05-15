@@ -16,13 +16,13 @@ class QuestionController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * 質問一覧画面を表示
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
+        return view('user.question.index');
     }
 
     /**
