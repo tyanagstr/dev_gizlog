@@ -44,17 +44,18 @@ class QuestionController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * 質問作成画面の表示をする
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        //
+        $categories = $this->category->all()->pluck('name', 'id');
+        return view('user.question.create', compact('categories'));
     }
 
     /**
-     * Store a newly created resource in storage.
+     * 質問の投稿をする
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
