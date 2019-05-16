@@ -5,14 +5,17 @@ namespace App\Http\Controllers\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Question;
+use App\Models\TagCategory;
 
 class QuestionController extends Controller
 {
     protected $question;
+    protected $category;
 
-    public function __construct(Question $question)
+    public function __construct(Question $question, TagCategory $category)
     {
         $this->question = $question;
+        $this->category = $category;
     }
 
     /**
@@ -22,7 +25,9 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        return view('user.question.index');
+        $categories = $this->category->all();
+        $questions = $this->question->all();
+        return view('user.question.index', compact('categories', 'questions'));
     }
 
     /**

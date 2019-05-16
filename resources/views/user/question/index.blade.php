@@ -16,7 +16,9 @@
     </div>
     <div class="category-wrap">
       <div class="btn all" id="0">all</div>
-      <div class="btn" id=""></div>
+      @foreach ($categories as $category)
+    <div class="btn {{ $category->name }}" id="{{ $category->id }}">{{ $category->name }}</div>
+      @endforeach
       <input id="category-val" name="tag_category_id" type="hidden" value="">
     </div>
   </form>
