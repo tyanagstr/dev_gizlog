@@ -7,7 +7,7 @@
     {!! Form::open(['route' => 'question.store', 'method' => 'post']) !!}
       <div class="form-group {{ $errors->has('tag_category_id') ? 'has-error': '' }}">
         {!! Form::hidden('user_id', Auth::id()) !!}
-        {!! Form::select('tag_category_id', $categories, old('categories'), [
+        {!! Form::select('tag_category_id', $categories, old('tag_category_id'), [
           'placeholder' => 'Select category',
           'class' => "form-control selectpicker form-size-small",
           'id' => 'pref_id']) !!}
