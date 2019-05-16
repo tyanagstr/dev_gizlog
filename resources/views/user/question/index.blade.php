@@ -39,7 +39,7 @@
           <td class="col-xs-1"><img src="{{ $question->user->avater }}" class="avatar-img">{{ $question->user->name }}</td>
           <td class="col-xs-2">{{ $question->tagCategory->name }}</td>
           <td class="col-xs-6">{{ $question->title }}</td>
-          <td class="col-xs-1">{{ $question->comments->count() }}<span class="point-color"></span></td>
+          <td class="col-xs-1">{{ $question->comments_count }}<span class="point-color"></span></td>
             <td class="col-xs-2">
               <a class="btn btn-success" href="">
                 <i class="fa fa-comments-o" aria-hidden="true"></i>

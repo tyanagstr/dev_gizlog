@@ -27,12 +27,17 @@ class QuestionController extends Controller
     public function index(Request $request)
     {
         $category_id = $request->query('tag_category_id');
+        $search_word = $request->query('search_word');
         $questions = NULL;
-        if(!empty($category_id) || $category_id !== '0') {
-            //カテゴリによるフィルタ
-            $questions = $this->question->fetchByCategoryId($category_id);  
+        if(empty($category_id) && empty($search_word)) {
+            $questions = $this->question->fetchAll();
         } else {
-            $questions = $this->question->all();
+            if (!empty($category_id)) {
+                //カテゴリによるフィルタ
+                $questions = $this->question->fetchByCategoryId($category_id);
+            } else if (!empty($search_word)) {
+                $questions = $this->question->fetchBySearchWord($search_word);
+            }
         }
         $categories = $this->category->all();
         return view('user.question.index', compact('categories', 'questions'));
