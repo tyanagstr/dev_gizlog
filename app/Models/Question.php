@@ -55,6 +55,7 @@ class Question extends Model
     public function fetchAll() {
         return $this->withTagCategory()
                     ->withCommentCount()
+                    ->orderBy('updated_at', 'DSC')
                     ->get();
     }
 
@@ -66,6 +67,7 @@ class Question extends Model
         return $this->withTagCategory()
                     ->withCommentCount()
                     ->where('tag_category_id', $category_id)
+                    ->orderBy('updated_at', 'DSC')
                     ->get();        
     }
 
@@ -79,6 +81,7 @@ class Question extends Model
                     ->join('tag_categories', 'tag_categories.id', '=', 'questions.tag_category_id')
                     ->where('questions.title', 'like', "%$search_word%")
                     ->orWhere('tag_categories.name', $search_word)
+                    ->orderBy('updated_at', 'DSC')
                     ->get();        
     }
 }
