@@ -21,12 +21,20 @@ class QuestionController extends Controller
     /**
      * 質問一覧画面を表示
      *
+     * @param \Illuminate\Http\Request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $category_id = $request->query('tag_category_id');
+        $questions = NULL;
+        if(!empty($category_id) || $category_id !== '0') {
+            //カテゴリによるフィルタ
+            $questions = $this->question->fetchByCategoryId($category_id);  
+        } else {
+            $questions = $this->question->all();
+        }
         $categories = $this->category->all();
-        $questions = $this->question->all();
         return view('user.question.index', compact('categories', 'questions'));
     }
 
