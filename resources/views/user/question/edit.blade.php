@@ -7,7 +7,7 @@
   <div class="container">
     {!! Form::open(['route' => ['question.update', $question->id], 'method' => 'put']) !!}
       <div class="form-group {{ $errors->has('tag_category_id') ? 'has-error' : '' }}">
-        {!! Form::select('tag_category_id', $categories, old('categories') ?: $question->tag_category_id, [
+        {!! Form::select('tag_category_id', $categories, old('tag_category_id') ?: $question->tag_category_id, [
           'placeholder' => 'Select category',
           'class' => 'form-control selectpicker form-size-small', 
           'id' => 'pref_id' 
