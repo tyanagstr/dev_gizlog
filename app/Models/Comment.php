@@ -20,6 +20,7 @@ class Comment extends Model
         'comment',
     ];
 
+    // relations
     public function user()
     {
         return $this->belongsTo(User::class);

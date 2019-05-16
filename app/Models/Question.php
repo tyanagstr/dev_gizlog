@@ -38,6 +38,11 @@ class Question extends Model
     }
 
     // scopes
+    public function scopeWithComments($query)
+    {
+        return $query->with('comments.user');
+    }
+
     public function scopeWithCommentCount($query)
     {
         return $query->withCount('comments');
@@ -58,6 +63,7 @@ class Question extends Model
      */
     public function fetchById($id) {
         return $this->withUser()
+                    ->withComments()
                     ->withTagCategory()
                     ->findOrFail($id);
     }

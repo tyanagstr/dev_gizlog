@@ -25,14 +25,16 @@
     </div>
   </div>
     <div class="comment-list">
+      @foreach ($question->comments as $comment)
         <div class="comment-wrap">
           <div class="comment-title">
-            <img src="" class="avatar-img">
-            <p></p>
-            <p class="comment-date"></p>
+            <img src="{{ $comment->user->avatar }}" class="avatar-img">
+            <p>{{ $comment->user->name }}</p>
+            <p class="comment-date">{{ $comment->created_at }}</p>
           </div>
-          <div class="comment-body"></div>
+          <div class="comment-body">{{ $comment->comment }}</div>
         </div>
+      @endforeach
     </div>
   <div class="comment-box">
     <form>
