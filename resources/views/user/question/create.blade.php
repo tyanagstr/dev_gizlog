@@ -6,6 +6,7 @@
   <div class="container">
     {!! Form::open(['route' => 'question.store', 'method' => 'post']) !!}
       <div class="form-group">
+        {!! Form::hidden('user_id', Auth::id()) !!}
         {!! Form::select('tag_category_id', $categories, old('categories'), [
           'placeholder' => 'Select category',
           'class' => "form-control selectpicker form-size-small",

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Question;
 use App\Models\TagCategory;
+use App\Http\Requests\User\QuestionsRequest;
 
 class QuestionController extends Controller
 {
@@ -57,12 +58,13 @@ class QuestionController extends Controller
     /**
      * 質問の投稿をする
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\User\QuestionsRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(QuestionsRequest $request)
     {
-        //
+        $this->question->fill($request->all())->save();
+        return redirect()->route('question.index'); 
     }
 
     /**
