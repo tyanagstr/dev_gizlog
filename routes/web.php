@@ -49,6 +49,8 @@ Route::group(['prefix' => '/', 'user.', 'namespace' => 'User'], function () {
                         'store',
                         'show',
                     ]]);
+    Route::post('question/comment', ['as' => 'question.comment.add', 'uses' => 'CommentController@store']);
+    
 });
 
 

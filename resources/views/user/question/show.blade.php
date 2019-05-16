@@ -37,22 +37,28 @@
       @endforeach
     </div>
   <div class="comment-box">
-    <form>
-      <input name="user_id" type="hidden" value="">
-      <input name="question_id" type="hidden" value="">
+    {!! Form::open(['route' => 'question.comment.add', 'method' => 'post']) !!}
+      {!! Form::hidden('user_id', Auth::id()) !!}
+      {!! Form::hidden('question_id', $question->id) !!}
       <div class="comment-title">
-        <img src="" class="avatar-img"><p>コメントを投稿する</p>
+        <img src="{{ Auth::user()->avatar }}" class="avatar-img"><p>コメントを投稿する</p>
       </div>
-      <div class="comment-body">
-        <textarea class="form-control" placeholder="Add your comment..." name="comment" cols="50" rows="10"></textarea>
-        <span class="help-block"></span>
+      <div class="comment-body {{ $errors->has('comment') ? 'has-error' : '' }}">
+        {!! Form::textarea('comment', old('comment'), [
+          'class' => 'form-control',
+          'placeholder' => 'Add your comment...', 
+          'cols' => 50,
+          'rows' => 10, 
+        ]) !!}
+        <span class="help-block">{{ $errors->first('comment') }}</span>
       </div>
       <div class="comment-bottom">
-        <button type="submit" class="btn btn-success">
-          <i class="fa fa-pencil" aria-hidden="true"></i>
-        </button>
+        {!! Form::button('<i class="fa fa-pencil" aria-hidden="true"></i>', [
+          'type' => 'submit',
+          'class' => 'btn btn-success',
+        ]) !!}
       </div>
-    </form>
+    {!! Form::close() !!}
   </div>
 </div>
 @endsection
