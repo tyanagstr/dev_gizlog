@@ -118,13 +118,14 @@ class QuestionController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * 質問を削除する
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+        $this->question->destroy($id);
+        return redirect()->route('question.mypage');
     }
 }
