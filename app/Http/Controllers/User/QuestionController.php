@@ -92,14 +92,16 @@ class QuestionController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * 質問編集画面を表示
      *
-     * @param  int  $id
+     * @param int $id 質問のID
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        //
+        $question = $this->question->findOrFail($id);
+        $categories = $this->category->all()->pluck('name', 'id');
+        return view('user.question.edit', compact('question', 'categories'));
     }
 
     /**
