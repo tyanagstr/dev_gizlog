@@ -30,14 +30,15 @@ class QuestionController extends Controller
     {
         $category_id = $request->query('tag_category_id');
         $search_word = $request->query('search_word');
-        $questions = NULL;
-        if(empty($category_id) && empty($search_word)) {
+        $questions = null;
+        if (empty($category_id) && empty($search_word)) {
             $questions = $this->question->fetchAll();
         } else {
             if (!empty($category_id)) {
                 //カテゴリによるフィルタ
                 $questions = $this->question->fetchByCategoryId($category_id);
-            } else if (!empty($search_word)) {
+            } elseif (!empty($search_word)) {
+                // キーワードで検索
                 $questions = $this->question->fetchBySearchWord($search_word);
             }
         }
@@ -65,7 +66,7 @@ class QuestionController extends Controller
     public function store(QuestionsRequest $request)
     {
         $this->question->fill($request->all())->save();
-        return redirect()->route('question.index'); 
+        return redirect()->route('question.index');
     }
 
     /**
