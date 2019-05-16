@@ -58,6 +58,7 @@ class Question extends Model
         return $query->with('user:id,name,avatar');
     }
 
+    // fetch methods
     /**
      * IDに対応する質問と付随する情報を取得する
      */
@@ -103,5 +104,16 @@ class Question extends Model
                     ->orWhere('tag_categories.name', $search_word)
                     ->orderBy('updated_at', 'DSC')
                     ->get();        
+    }
+
+    /**
+     * ユーザーの投稿した質問を取得する
+     */
+    public function fetchByUserId($user_id)
+    {
+        return $this->withCommentCount()
+                    ->withTagCategory()
+                    ->where('user_id', $user_id)
+                    ->get();
     }
 }

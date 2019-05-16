@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Question;
 use App\Models\TagCategory;
 use App\Http\Requests\User\QuestionsRequest;
+use Illuminate\Support\Facades\Auth;
 
 class QuestionController extends Controller
 {
@@ -78,6 +79,16 @@ class QuestionController extends Controller
         $question = $this->question->fetchById($id);
         
         return view('user.question.show', compact('question'));
+    }
+
+    /**
+     * ユーザーのマイページを表示
+     */
+    public function showMypage()
+    {
+        $questions = $this->question->fetchByUserId(Auth::id());
+        $user = Auth::user();
+        return view('user.question.mypage', compact(['questions', 'user']));
     }
 
     /**

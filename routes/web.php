@@ -42,6 +42,8 @@ Route::group(['prefix' => '/', 'user.', 'namespace' => 'User'], function () {
 
     Route::resource('report', DailyReportController::class);
 
+    Route::get('question/mypage', ['as' => 'question.mypage', 'uses' => 'QuestionController@showMypage']);
+    Route::post('question/comment', ['as' => 'question.comment.add', 'uses' => 'CommentController@store']);
     Route::resource('question', QuestionController::class,
                     ['only' => [
                         'index',
@@ -49,8 +51,6 @@ Route::group(['prefix' => '/', 'user.', 'namespace' => 'User'], function () {
                         'store',
                         'show',
                     ]]);
-    Route::post('question/comment', ['as' => 'question.comment.add', 'uses' => 'CommentController@store']);
-    
 });
 
 
@@ -73,9 +73,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.' ,'namespace' => 'Admin'], fu
     Route::get('report', ['as' => 'report.index', 'uses' => 'DailyReportController@index']);
     Route::get('report/{id}/show', ['as' => 'report.show', 'uses' => 'DailyReportController@show']);
 
-    Route::get('question', function () {
-        abort(404);
-    });
+    //Route::get('question', function () {
+    //    abort(404);
+    //});
 
     Route::get('user', function () {
         abort(404);
