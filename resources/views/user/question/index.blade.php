@@ -36,7 +36,7 @@
       <tbody>
         @foreach ($questions as $question)
           <tr class="row">
-          <td class="col-xs-1"><img src="{{ $question->user->avater }}" class="avatar-img">{{ $question->user->name }}</td>
+          <td class="col-xs-1"><img src="{{ $question->user->avatar }}" class="avatar-img" alt="{{ $question->user->name }}"></td>
           <td class="col-xs-2">{{ $question->tagCategory->name }}</td>
           <td class="col-xs-6">{{ $question->title }}</td>
           <td class="col-xs-1">{{ $question->comments_count }}<span class="point-color"></span></td>
