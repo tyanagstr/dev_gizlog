@@ -49,10 +49,25 @@ class Question extends Model
         return $query->with('tagCategory:id,name');
     }
 
+    public function scopeWithUser($query)
+    {
+        return $query->with('user:id,name,avatar');
+    }
+
+    /**
+     * IDに対応する質問と付随する情報を取得する
+     */
+    public function fetchById($id) {
+        return $this->withUser()
+                    ->withTagCategory()
+                    ->findOrFail($id);
+    }
+
     /**
      * 一覧表示用の全件取得する
      */
-    public function fetchAll() {
+    public function fetchAll()
+    {
         return $this->withTagCategory()
                     ->withCommentCount()
                     ->orderBy('updated_at', 'DSC')

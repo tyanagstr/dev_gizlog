@@ -68,14 +68,16 @@ class QuestionController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * 質問の詳細を表示する
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        //
+        $question = $this->question->fetchById($id);
+        
+        return view('user.question.show', compact('question'));
     }
 
     /**

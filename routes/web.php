@@ -47,6 +47,7 @@ Route::group(['prefix' => '/', 'user.', 'namespace' => 'User'], function () {
                         'index',
                         'create',
                         'store',
+                        'show',
                     ]]);
 });
 
