@@ -30,4 +30,9 @@ class Question extends Model
     {
         return $this->belongsTo(TagCategory::class);
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }
