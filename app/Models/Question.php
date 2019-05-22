@@ -58,6 +58,32 @@ class Question extends Model
         return $query->with('user:id,name,avatar');
     }
 
+    /** 
+     * 取得順を更新日時の降順するスコープ
+     */
+    public function scopeOrderByUpdatedAtDesc($query)
+    {
+        return $query->orderBy('updated_at', 'DESC');
+    }
+
+    /** 
+     * 検索ワードによる絞り込みを行うスコープ
+     */
+    public function scopeSearchWith($query, $search_word)
+    {
+        return $query->join('tag_categories', 'tag_categories.id', '=', 'questions.tag_category_id')
+                     ->where('questions.title', 'like', "%$search_word%")
+                     ->orWhere('tag_categories.name', $search_word);
+    }
+
+    /**
+     * カテゴリIDによる絞り込みを行うスコープ
+     */
+    public function scopeCategoryIdIs($query, $category_id)
+    {
+        return $query->where('tag_category_id', $category_id);
+    }
+
     // fetch methods
     /**
      * IDに対応する質問と付随する情報を取得する
@@ -76,7 +102,7 @@ class Question extends Model
     {
         return $this->withTagCategory()
                     ->withCommentCount()
-                    ->orderBy('updated_at', 'DSC')
+                    ->orderByUpdatedAtDesc()
                     ->get();
     }
 
@@ -87,8 +113,8 @@ class Question extends Model
     {
         return $this->withTagCategory()
                     ->withCommentCount()
-                    ->where('tag_category_id', $category_id)
-                    ->orderBy('updated_at', 'DSC')
+                    ->categoryIdIs($category_id)
+                    ->orderByUpdatedAtDesc()
                     ->get();        
     }
 
@@ -99,10 +125,8 @@ class Question extends Model
     {
         return $this->withTagCategory()
                     ->withCommentCount()
-                    ->join('tag_categories', 'tag_categories.id', '=', 'questions.tag_category_id')
-                    ->where('questions.title', 'like', "%$search_word%")
-                    ->orWhere('tag_categories.name', $search_word)
-                    ->orderBy('updated_at', 'DSC')
+                    ->searchWith($search_word)
+                    ->orderByUpdatedAtDesc()
                     ->get();        
     }
 
