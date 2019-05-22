@@ -131,6 +131,19 @@ class Question extends Model
     }
 
     /**
+     * カテゴリIDとキーワードによる検索結果を取得する
+     */
+    public function fetchByCategoryAndWord($category_id, $search_word)
+    {
+        return $this->withTagCategory()
+                    ->withCommentCount()
+                    ->categoryIdIs($category_id)
+                    ->searchWith($search_word)
+                    ->orderByUpdatedAtDesc()
+                    ->get();
+    }
+
+    /**
      * ユーザーの投稿した質問を取得する
      */
     public function fetchByUserId($user_id)

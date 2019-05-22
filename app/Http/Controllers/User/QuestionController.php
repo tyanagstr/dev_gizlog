@@ -30,20 +30,29 @@ class QuestionController extends Controller
     {
         $category_id = $request->query('tag_category_id');
         $search_word = $request->query('search_word');
-        $questions = null;
-        if (empty($category_id) && empty($search_word)) {
-            $questions = $this->question->fetchAllQuestions();
-        } else {
-            if (!empty($category_id)) {
-                //カテゴリによるフィルタ
-                $questions = $this->question->fetchByCategoryId($category_id);
-            } elseif (!empty($search_word)) {
-                // キーワードで検索
-                $questions = $this->question->fetchBySearchWord($search_word);
-            }
-        }
+
         $categories = $this->category->all();
-        return view('user.question.index', compact('categories', 'questions'));
+        $is_category_id_empty = empty($category_id);
+        $is_search_word_empty = empty($search_word);
+
+        if ($is_category_id_empty && $is_search_word_empty) {
+            $questions = $this->question->fetchAllQuestions();
+            return view('user.question.index', compact('categories', 'questions'));
+        }
+
+        if (!$is_category_id_empty && !$is_search_word_empty) {
+            // カテゴリとキーワードによるフィルタ
+            $questions = $this->question->fetchByCategoryAndWord($category_id, $search_word);
+            return view('user.question.index', compact('categories', 'questions'));
+        } elseif (!$is_category_id_empty) {
+            //カテゴリによるフィルタ
+            $questions = $this->question->fetchByCategoryId($category_id);
+            return view('user.question.index', compact('categories', 'questions'));
+        } elseif (!$is_search_word_empty) {
+            // キーワードで検索
+            $questions = $this->question->fetchBySearchWord($search_word);
+            return view('user.question.index', compact('categories', 'questions'));
+        }
     }
 
     /**
