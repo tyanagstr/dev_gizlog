@@ -71,9 +71,13 @@ class Question extends Model
      */
     public function scopeSearchWith($query, $search_word)
     {
+        if (!empty($search_word)) {
         return $query->join('tag_categories', 'tag_categories.id', '=', 'questions.tag_category_id')
                      ->where('questions.title', 'like', "%$search_word%")
                      ->orWhere('tag_categories.name', $search_word);
+        } else {
+            return $query;
+    }
     }
 
     /**
@@ -81,7 +85,11 @@ class Question extends Model
      */
     public function scopeCategoryIdIs($query, $category_id)
     {
+        if (!empty($category_id)) {
         return $query->where('tag_category_id', $category_id);
+        } else {
+            return $query;
+        }
     }
 
     // fetch methods
