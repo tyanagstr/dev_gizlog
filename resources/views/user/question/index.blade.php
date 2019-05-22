@@ -3,11 +3,14 @@
 
 <h2 class="brand-header">質問一覧</h2>
 <div class="main-wrap">
-  <form>
+  {!! Form::open(['route' => 'question.index', 'method' => 'get']) !!}
     <div class="btn-wrapper">
       <div class="search-box">
-        <input class="form-control search-form" placeholder="Search words..." name="search_word" type="text">
-        <button type="submit" class="search-icon"><i class="fa fa-search" aria-hidden="true"></i></button>
+        {!! Form::text('search_word', "", [
+            'class' => 'form-control search-form',
+            'placeholder' => 'Search words...'
+          ]) !!}
+        {!! Form::button('<i class="fa fa-search" aria-hidden="true"></i>', ['type' => 'submit', 'class' => 'search-icon']) !!}
       </div>
       <a class="btn" href="{{ route('question.create') }}"><i class="fa fa-plus" aria-hidden="true"></i></a>
       <a class="btn" href="{{ route('question.mypage') }}">
@@ -21,7 +24,7 @@
       @endforeach
       <input id="category-val" name="tag_category_id" type="hidden" value="">
     </div>
-  </form>
+  {!! Form::close() !!}
   <div class="content-wrapper table-responsive">
     <table class="table table-striped">
       <thead>
