@@ -6,7 +6,7 @@
   {!! Form::open(['route' => 'question.index', 'method' => 'get']) !!}
     <div class="btn-wrapper">
       <div class="search-box">
-        {!! Form::text('search_word', "", [
+        {!! Form::text('search_word', Request::get('search_word') ?: "", [
             'class' => 'form-control search-form',
             'placeholder' => 'Search words...'
           ]) !!}
@@ -22,7 +22,7 @@
       @foreach ($categories as $category)
         <div class="btn {{ $category->name }}" id="{{ $category->id }}">{{ $category->name }}</div>
       @endforeach
-      <input id="category-val" name="tag_category_id" type="hidden" value="">
+      <input id="category-val" name="tag_category_id" type="hidden" value="{{ Request::get('tag_category_id') ?: "" }}">
     </div>
   {!! Form::close() !!}
   <div class="content-wrapper table-responsive">
