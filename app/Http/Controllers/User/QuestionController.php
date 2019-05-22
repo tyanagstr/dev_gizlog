@@ -21,33 +21,6 @@ class QuestionController extends Controller
     }
 
     /**
-     * 条件を指定し、質問一覧を取得する。条件のどちらも empty であれば全件取得する。
-     * @param string $category_id
-     * @param string $search_word
-     * @return \Illuminate\Support\Collection
-     */
-    private function fetchQuestionsByConditions($category_id, $search_word)
-    {
-        $is_category_id_empty = empty($category_id);
-        $is_search_word_empty = empty($search_word);
-
-        if ($is_category_id_empty && $is_search_word_empty) {
-            return $this->question->fetchAllQuestions();
-        }
-
-        if (!$is_category_id_empty && !$is_search_word_empty) {
-            // カテゴリとキーワードによるフィルタ済みの質問一覧を取得
-            return $this->question->fetchByCategoryAndWord($category_id, $search_word);
-        } elseif (!$is_category_id_empty) {
-            //カテゴリによるフィルタ済みの質問一覧を取得
-            return $this->question->fetchByCategoryId($category_id);
-        } elseif (!$is_search_word_empty) {
-            // キーワードによるフィルタ済みの質問一覧を取得
-            return $this->question->fetchBySearchWord($search_word);
-        }
-    }
-
-    /**
      * 質問一覧画面を表示
      *
      * @param \Illuminate\Http\Request
@@ -55,11 +28,15 @@ class QuestionController extends Controller
      */
     public function index(Request $request)
     {
-        $category_id = $request->query('tag_category_id');
-        $search_word = $request->query('search_word');
-
         $categories = $this->category->all();
-        $questions = $this->fetchQuestionsByConditions($category_id, $search_word);
+
+        $queries = $request->query();
+        if (array_key_exists('search_word', $queries)) {
+            // カテゴリとキーワードによるフィルタ済みの質問一覧を取得
+            $questions = $this->question->fetchByConditions($queries);
+        } else {
+            $question = $this->question->fetchAllQuestions();
+        }
 
         return view('user.question.index', compact('categories', 'questions'));
     }

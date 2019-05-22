@@ -58,7 +58,7 @@ class Question extends Model
         return $query->with('user:id,name,avatar');
     }
 
-    /** 
+    /**
      * 取得順を更新日時の降順するスコープ
      */
     public function scopeOrderByUpdatedAtDesc($query)
@@ -66,18 +66,18 @@ class Question extends Model
         return $query->orderBy('updated_at', 'DESC');
     }
 
-    /** 
+    /**
      * 検索ワードによる絞り込みを行うスコープ
      */
     public function scopeSearchWith($query, $search_word)
     {
         if (!empty($search_word)) {
-        return $query->join('tag_categories', 'tag_categories.id', '=', 'questions.tag_category_id')
+            return $query->join('tag_categories', 'tag_categories.id', '=', 'questions.tag_category_id')
                      ->where('questions.title', 'like', "%$search_word%")
                      ->orWhere('tag_categories.name', $search_word);
         } else {
             return $query;
-    }
+        }
     }
 
     /**
@@ -86,7 +86,7 @@ class Question extends Model
     public function scopeCategoryIdIs($query, $category_id)
     {
         if (!empty($category_id)) {
-        return $query->where('tag_category_id', $category_id);
+            return $query->where('tag_category_id', $category_id);
         } else {
             return $query;
         }
@@ -96,7 +96,8 @@ class Question extends Model
     /**
      * IDに対応する質問と付随する情報を取得する
      */
-    public function fetchById($id) {
+    public function fetchById($id)
+    {
         return $this->withUser()
                     ->withComments()
                     ->withTagCategory()
@@ -123,7 +124,7 @@ class Question extends Model
                     ->withCommentCount()
                     ->categoryIdIs($category_id)
                     ->orderByUpdatedAtDesc()
-                    ->get();        
+                    ->get();
     }
 
     /**
@@ -135,7 +136,7 @@ class Question extends Model
                     ->withCommentCount()
                     ->searchWith($search_word)
                     ->orderByUpdatedAtDesc()
-                    ->get();        
+                    ->get();
     }
 
     /**
@@ -149,6 +150,15 @@ class Question extends Model
                     ->searchWith($search_word)
                     ->orderByUpdatedAtDesc()
                     ->get();
+    }
+
+    
+    /**
+     * 連想配列で指定された条件による検索をする。
+     */
+    public function fetchByConditions($queries)
+    {
+        return $this->fetchByCategoryAndWord($queries['tag_category_id'], $queries['search_word']);
     }
 
     /**
