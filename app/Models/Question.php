@@ -72,7 +72,7 @@ class Question extends Model
     /**
      * 一覧表示用の全件取得する
      */
-    public function fetchAll()
+    public function fetchAllQuestions()
     {
         return $this->withTagCategory()
                     ->withCommentCount()

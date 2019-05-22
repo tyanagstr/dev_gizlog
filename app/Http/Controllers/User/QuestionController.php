@@ -32,7 +32,7 @@ class QuestionController extends Controller
         $search_word = $request->query('search_word');
         $questions = null;
         if (empty($category_id) && empty($search_word)) {
-            $questions = $this->question->fetchAll();
+            $questions = $this->question->fetchAllQuestions();
         } else {
             if (!empty($category_id)) {
                 //カテゴリによるフィルタ
