@@ -67,9 +67,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.' ,'namespace' => 'Admin'], fu
     Route::get('report', ['as' => 'report.index', 'uses' => 'DailyReportController@index']);
     Route::get('report/{id}/show', ['as' => 'report.show', 'uses' => 'DailyReportController@show']);
 
-    //Route::get('question', function () {
-    //    abort(404);
-    //});
+    Route::get('question', function () {
+       abort(404);
+    });
 
     Route::get('user', function () {
         abort(404);
