@@ -35,7 +35,7 @@ class QuestionController extends Controller
             // カテゴリとキーワードによるフィルタ済みの質問一覧を取得
             $questions = $this->question->fetchByConditions($queries);
         } else {
-            $question = $this->question->fetchAllQuestions();
+            $questions = $this->question->fetchAllQuestions();
         }
 
         return view('user.question.index', compact('categories', 'questions'));
